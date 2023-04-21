@@ -34,15 +34,25 @@ class MeetingsScreen extends StatelessWidget {
                         isScrollControlled: true,
                         context: context,
                         builder: (cntxt) {
-                          return JoinMeetingBottomSheet();
+                          return JoinMeetingBottomSheet(
+                            joinCallback: (room, name, isMicroOn, isVideoOn) {
+                              MeetingCubit.read(context).joinMeeting(
+                                roomNumber: room,
+                                name: name,
+                                isMicrophoneOn: isMicroOn,
+                                isVideoOn: isVideoOn,
+                              );
+                              Navigator.pop(cntxt);
+                            },
+                          );
                         });
                   },
                 ),
-                _MeetingButton(
-                  title: 'Share Screen',
-                  icon: Icons.mobile_screen_share,
-                  onPressed: () {},
-                )
+                // _MeetingButton(
+                //   title: 'Share Screen',
+                //   icon: Icons.mobile_screen_share,
+                //   onPressed: () {},
+                // )
               ],
             ),
             const Spacer(),

@@ -1,11 +1,16 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
-import 'package:zoom/presentation/widgets/custom_button.dart';
 
+import 'package:zoom/presentation/widgets/custom_button.dart';
 import 'package:zoom/utils/constants/app_colors.dart';
 
 class JoinMeetingBottomSheet extends StatefulWidget {
-  const JoinMeetingBottomSheet({Key? key}) : super(key: key);
+  const JoinMeetingBottomSheet({
+    Key? key,
+    required this.joinCallback,
+  }) : super(key: key);
+
+  final Function(String room, String name, bool isMicroOn, bool isVideoOn) joinCallback;
 
   @override
   State<JoinMeetingBottomSheet> createState() => _JoinMeetingBottomSheetState();
@@ -91,7 +96,17 @@ class _JoinMeetingBottomSheetState extends State<JoinMeetingBottomSheet> {
           ],
         ),
         const SizedBox(height: 20),
-        CustomButton(title: 'Join meeting', isActive: isAvailabledToJoin, onPressed: () {})
+        CustomButton(
+            title: 'Join meeting',
+            isActive: isAvailabledToJoin,
+            onPressed: () {
+              widget.joinCallback.call(
+                _meetingNumberController.text,
+                _nameController.text.isEmpty ? 'No Name' : _nameController.text,
+                isMicrophoneOn,
+                isVideoOn,
+              );
+            })
       ],
     );
   }

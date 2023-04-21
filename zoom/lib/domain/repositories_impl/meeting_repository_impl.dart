@@ -40,8 +40,8 @@ class MeetingRepositoryImpl implements MeetingRepository {
 
       var options = JitsiMeetingOptions(room: roomName)
         ..userDisplayName = userName
-        ..audioMuted = isAudioMuted
-        ..videoMuted = isVideoMuted;
+        ..audioMuted = !isAudioMuted
+        ..videoMuted = !isVideoMuted;
 
       await JitsiMeet.joinMeeting(options);
     } catch (error) {
