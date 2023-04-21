@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:zoom/utils/constants/app_colors.dart';
 
-
-class MeetAndChatScreen extends StatelessWidget {
-  const MeetAndChatScreen({Key? key}) : super(key: key);
+class MeetingsScreen extends StatelessWidget {
+  const MeetingsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

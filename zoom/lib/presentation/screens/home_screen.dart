@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:zoom/presentation/screens/chats_list_screen.dart';
 import 'package:zoom/presentation/screens/contacts_screen.dart';
-import 'package:zoom/presentation/screens/meet_and_chat_screen.dart';
+import 'package:zoom/presentation/screens/meetings_screen.dart';
 import 'package:zoom/presentation/screens/settings_sceren.dart';
 import 'package:zoom/utils/constants/app_colors.dart';
 
@@ -40,7 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
     if (_page == 0) {
       return const ContactsScreen();
     } else if (_page == 1) {
-      return const MeetAndChatScreen();
+      return const MeetingsScreen();
     } else if (_page == 2) {
       return const ChatsListScreen();
     } else {
