@@ -2,6 +2,8 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zoom/config/router/routes.dart';
+import 'package:zoom/presentation/cubits/meeting_cubit/meeting_cubit.dart';
+import 'package:zoom/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:zoom/presentation/widgets/system_messange_widget.dart';
 
 import 'config/theme/app_theme.dart';
@@ -34,10 +36,23 @@ class CubitsSetup extends StatelessWidget {
         ),
         BlocProvider(
           lazy: false,
+          create: (_) => UserCubit(
+            userRepository: sl(),
+          ),
+        ),
+        BlocProvider(
+          lazy: false,
           create: (_) => AuthCubit(
             api: sl(),
+            userCubit: UserCubit.read(_),
             systemMessageCubit: SystemMessageCubit.read(_),
           )..checkAuthorisation(),
+        ),
+        BlocProvider(
+          create: (_) => MeetingCubit(
+            meetingRepository: sl(),
+            userCubit: UserCubit.read(_),
+          ),
         ),
       ],
       child: const MainApp(),

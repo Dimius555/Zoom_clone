@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:zoom/presentation/cubits/meeting_cubit/meeting_cubit.dart';
+import 'package:zoom/presentation/widgets/join_meeting_bottom_sheet.dart';
 import 'package:zoom/utils/constants/app_colors.dart';
 
 class MeetingsScreen extends StatelessWidget {
@@ -12,24 +14,46 @@ class MeetingsScreen extends StatelessWidget {
       ),
       body: Padding(
         padding: const EdgeInsets.symmetric(vertical: 12.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        child: Column(
           children: [
-            _MeetingButton(
-              title: 'New Call',
-              icon: Icons.video_call,
-              onPressed: () {},
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                _MeetingButton(
+                  title: 'New Call',
+                  icon: Icons.video_call,
+                  onPressed: () {
+                    MeetingCubit.read(context).createNewMeeting();
+                  },
+                ),
+                _MeetingButton(
+                  title: 'Join Meeting',
+                  icon: Icons.add,
+                  onPressed: () {
+                    showModalBottomSheet(
+                        isScrollControlled: true,
+                        context: context,
+                        builder: (cntxt) {
+                          return JoinMeetingBottomSheet();
+                        });
+                  },
+                ),
+                _MeetingButton(
+                  title: 'Share Screen',
+                  icon: Icons.mobile_screen_share,
+                  onPressed: () {},
+                )
+              ],
             ),
-            _MeetingButton(
-              title: 'Join Meeting',
-              icon: Icons.add,
-              onPressed: () {},
+            const Spacer(),
+            const Text(
+              'Create or join meeting!',
+              style: TextStyle(
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
             ),
-            _MeetingButton(
-              title: 'Share Screen',
-              icon: Icons.mobile_screen_share,
-              onPressed: () {},
-            )
+            const Spacer(),
           ],
         ),
       ),

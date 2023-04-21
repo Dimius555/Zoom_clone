@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:zoom/data/data_sources/remote/auth_api.dart';
+import 'package:zoom/presentation/cubits/user_cubit/user_cubit.dart';
 import 'package:zoom/presentation/widgets/system_messange_widget.dart';
 import 'package:zoom/utils/constants/enums.dart';
 part 'auth_state.dart';
@@ -11,17 +12,23 @@ class AuthCubit extends Cubit<AuthState> {
   static AuthState watchState(BuildContext context) => context.watch<AuthCubit>().state;
   static AuthCubit read(BuildContext context) => context.read<AuthCubit>();
 
-  AuthCubit({required AuthAPI api, required SystemMessageCubit systemMessageCubit})
-      : _api = api,
+  AuthCubit({
+    required AuthAPI api,
+    required SystemMessageCubit systemMessageCubit,
+    required UserCubit userCubit,
+  })  : _api = api,
         _systemMessageCubit = systemMessageCubit,
+        _userCubit = userCubit,
         super(AuthState(status: AuthStatus.waiting));
 
   final SystemMessageCubit _systemMessageCubit;
+  final UserCubit _userCubit;
   final AuthAPI _api;
 
   void checkAuthorisation() async {
     final result = _api.checkAuthorisation();
     if (result) {
+      _userCubit.fetchUser();
       emit(state.copyWith(status: AuthStatus.signin));
     } else {
       emit(state.copyWith(status: AuthStatus.signout));

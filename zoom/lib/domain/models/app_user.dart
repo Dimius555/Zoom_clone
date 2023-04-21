@@ -39,4 +39,6 @@ class AppUser {
       'photoUrl': photoUrl,
     };
   }
+
+  static AppUser emptyUser() => AppUser(id: '', name: '', email: '', photoUrl: '');
 }
