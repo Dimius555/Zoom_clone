@@ -28,7 +28,8 @@ class AuthAPI {
       if (user != null && userCredential.additionalUserInfo != null && userCredential.additionalUserInfo!.isNewUser) {
         await _saveNewUserToFirestore(user);
       }
-    } on FirebaseAuthException {
+    } on FirebaseAuthException catch (e) {
+      log(e.toString());
       rethrow;
     }
   }

@@ -30,6 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
 
   void signIn() async {
     try {
+      emit(state.copyWith(status: AuthStatus.waiting));
       await _api.signInWithGoogle();
       _systemMessageCubit.showSuccessMessage('Signed in sucessfully!');
       emit(state.copyWith(status: AuthStatus.signin));
