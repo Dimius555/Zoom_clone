@@ -9,11 +9,21 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  cloud_firestore: ^3.1.10
+
   cupertino_icons: ^1.0.2
+
+  # Firebase 
+  cloud_firestore: ^3.1.10
   firebase_auth: ^3.3.9
   firebase_core: ^1.13.1
+
+  # DI
+  get_it: ^7.2.0
+
+  # State Managment
+  flutter_bloc: ^8.1.2
   
+  # Utils
   google_sign_in: ^5.2.4
   intl: ^0.17.0
   jitsi_meet: ^4.0.0
